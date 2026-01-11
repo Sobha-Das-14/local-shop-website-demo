@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshCorner - Your Local Shop</title>
+    <meta name="description" content="Quality products, affordable prices, and trusted local service at FreshCorner.">
+
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            /* Colors */
+            --primary-color: #2E7D32; /* Deep Green */
+            --primary-dark: #1B5E20;
+            --primary-light: #E8F5E9;
+            --accent-color: #F9A825; /* Golden Yellow */
+            --text-dark: #333333;
+            --text-light: #666666;
+            --bg-white: #ffffff;
+            --bg-off-white: #f9f9f9;
+            --whatsapp-color: #25D366;
+            --status-open: #4CAF50;
+            --status-closed: #F44336;
+            
+            /* Spacing & Layout */
+            --container-width: 1100px;
+            --section-padding: 70px 20px;
+            --border-radius: 8px;
+            --shadow: 0 4px 15px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--bg-white);
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* --- UTILITIES --- */
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: var(--accent-color);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary { background-color: var(--primary-color); color: white; }
+        .btn-primary:hover { background-color: var(--primary-dark); transform: translateY(-2px); }
+
+        .btn-whatsapp { background-color: var(--whatsapp-color); color: white; }
+        .btn-whatsapp:hover { background-color: #1ebc57; transform: translateY(-2px); }
+
+        .btn-outline { border: 2px solid var(--primary-color); color: var(--primary-color); background: transparent; }
+        .btn-outline:hover { background-color: var(--primary-color); color: white; }
+
+        /* --- ANNOUNCEMENT BAR --- */
+        .announcement-bar {
+            background-color: var(--accent-color);
+            color: #000;
+            text-align: center;
+            padding: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 12px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover { color: var(--primary-color); }
+
+        /* Open Status Badge */
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-badge.open { background-color: var(--primary-light); color: var(--primary-dark); }
+        .status-badge.closed { background-color: #ffebee; color: var(--status-closed); }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; background-color: currentColor; }
+
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+
+        /* --- HERO SECTION --- */
+        #hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://picsum.photos/seed/shophero2/1920/1080');
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 { font-size: 3rem; margin-bottom: 1rem; line-height: 1.2; }
+        .hero-content p { font-size: 1.25rem; margin-bottom: 2rem; opacity: 0.9; }
+        .hero-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+
+        /* --- ABOUT SECTION --- */
+        #about { padding: var(--section-padding); background-color: var(--bg-white); }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .about-text h2 { font-size: 2.2rem; color: var(--primary-dark); margin-bottom: 1.2rem; }
+        .about-text p { margin-bottom: 1rem; color: var(--text-light); }
+        .about-features { display: flex; gap: 20px; margin-top: 20px; flex-wrap: wrap; }
+        .feature-item { display: flex; align-items: center; gap: 8px; font-weight: 600; color: var(--primary-color); }
+        .about-image img { border-radius: var(--border-radius); box-shadow: var(--shadow); width: 100%; }
+
+        /* --- TESTIMONIALS (NEW) --- */
+        #testimonials { padding: var(--section-padding); background-color: var(--bg-off-white); }
+        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .review-card { background: white; padding: 25px; border-radius: var(--border-radius); box-shadow: 0 2px 8px rgba(0,0,0,0.05); position: relative; }
+        .stars { color: var(--accent-color); margin-bottom: 10px; }
+        .review-text { font-style: italic; color: var(--text-light); margin-bottom: 15px; }
+        .reviewer { display: flex; align-items: center; gap: 10px; }
+        .reviewer img { width: 40px; height: 40px; border-radius: 50%; }
+        .reviewer-info h4 { font-size: 0.95rem; margin-bottom: 0; }
+        .reviewer-info span { font-size: 0.8rem; color: #888; }
+
+        /* --- PRODUCTS SECTION --- */
+        #products { padding: var(--section-padding); background-color: var(--bg-white); }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .product-card { background: white; border: 1px solid #eee; border-radius: var(--border-radius); overflow: hidden; transition: var(--transition); }
+        .product-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: transparent; }
+        .product-image { height: 200px; width: 100%; background-color: #f0f0f0; }
+        .product-info { padding: 20px; }
+        .product-category { font-size: 0.8rem; text-transform: uppercase; color: var(--primary-color); font-weight: 700; margin-bottom: 5px; }
+        .product-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 5px; color: var(--text-dark); }
+        .product-desc { font-size: 0.9rem; color: var(--text-light); }
+
+        /* --- SERVICES MODES (NEW) --- */
+        #services { padding: var(--section-padding); background-color: var(--primary-color); color: white; text-align: center; }
+        .services-grid { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 30px; margin-top: 40px; }
+        .service-box { flex: 1; min-width: 250px; padding: 20px; }
+        .service-icon { background: rgba(255,255,255,0.2); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+        .service-icon svg { width: 35px; height: 35px; fill: white; }
+        .service-box h3 { margin-bottom: 10px; font-size: 1.3rem; }
+        .service-box p { opacity: 0.9; font-size: 0.95rem; }
+
+        /* --- DETAILS SECTION --- */
+        #details { padding: var(--section-padding); background-color: white; }
+        .details-wrapper { display: flex; flex-wrap: wrap; gap: 40px; background-color: var(--bg-off-white); padding: 40px; border-radius: 16px; align-items: center; }
+        .detail-item { flex: 1; min-width: 280px; }
+        .detail-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-size: 1.2rem; font-weight: 700; color: var(--primary-dark); }
+        .detail-content p { margin-bottom: 8px; color: var(--text-light); }
+        .map-btn-container { text-align: center; width: 100%; margin-top: 30px; }
+        @media (min-width: 768px) { .map-btn-container { width: auto; margin-top: 0; text-align: right; } }
+
+        /* --- FOOTER --- */
+        footer { background-color: #222; color: #ccc; padding: 40px 20px; text-align: center; font-size: 0.9rem; }
+        footer p { margin-bottom: 10px; }
+
+        /* --- FLOATING WHATSAPP BUTTON --- */
+        .fab-whatsapp {
+            position: fixed; bottom: 25px; right: 25px;
+            background-color: var(--whatsapp-color); color: white;
+            width: 60px; height: 60px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+            z-index: 2000; transition: var(--transition);
+        }
+        .fab-whatsapp:hover { transform: scale(1.1); }
+
+        /* --- ICONS --- */
+        .icon { width: 24px; height: 24px; fill: currentColor; }
+        .icon-lg { width: 32px; height: 32px; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .hero-content h1 { font-size: 2.2rem; }
+            .about-grid { grid-template-columns: 1fr; }
+            .about-image { order: -1; }
+            .details-wrapper { padding: 25px; text-align: center; }
+            .detail-header { justify-content: center; }
+            .map-btn-container { text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NEW: Announcement Bar for Offers -->
+    <div class="announcement-bar">
+        🎉 Free Home Delivery on orders above $30! Use Code: FRESH30
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z" /></svg>
+                FreshCorner
+            </a>
+            
+            <!-- Desktop Nav -->
+            <nav class="nav-links">
+                <a href="#about">About</a>
+                <a href="#testimonials">Reviews</a>
+                <a href="#products">Products</a>
+                <a href="#services">Services</a>
+                <!-- NEW: Open/Closed Status Badge -->
+                <div id="shop-status" class="status-badge">
+                    <span class="status-dot"></span> <span id="status-text">Checking...</span>
+                </div>
+            </nav>
+
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" /></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="hero-content container">
+            <h1>Your Friendly Neighborhood Shop</h1>
+            <p>Fresh groceries, daily essentials, and trusted service, right around the corner.</p>
+            <div class="hero-buttons">
+                <a href="tel:1234567890" class="btn btn-primary">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z" /></svg>
+                    Call Now
+                </a>
+                <a href="https://wa.me/1234567890" target="_blank" class="btn btn-whatsapp">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z" /></svg>
+                    WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container about-grid">
+            <div class="about-image">
+                <img src="https://picsum.photos/seed/shopinterior/600/400" alt="Inside FreshCorner Shop" width="600" height="400">
+            </div>
+            <div class="about-text">
+                <h2>Serving the Community Since 2010</h2>
+                <p>At FreshCorner, we believe everyone deserves access to high-quality products without breaking the bank. As a family-run business, we treat every customer like a neighbor.</p>
+                <p>From farm-fresh vegetables to daily household essentials, we stock only the best brands and freshest produce. We pride ourselves on our clean aisles, friendly staff, and the trust we've built in our local community.</p>
+                
+                <div class="about-features">
+                    <div class="feature-item">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M11,16.5L18,9.5L16.59,8.09L11,13.67L7.91,10.59L6.5,12L11,16.5Z" /></svg>
+                        Quality Products
+                    </div>
+                    <div class="feature-item">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M11,16.5L18,9.5L16.59,8.09L11,13.67L7.91,10.59L6.5,12L11,16.5Z" /></svg>
+                        Fair Prices
+                    </div>
+                    <div class="feature-item">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M11,16.5L18,9.5L16.59,8.09L11,13.67L7.91,10.59L6.5,12L11,16.5Z" /></svg>
+                        Trusted Service
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Testimonials Section -->
+    <section id="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Neighbors Say</h2>
+            <p class="section-subtitle">Don't just take our word for it.</p>
+            
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"The freshest vegetables in the area. I've been shopping here for 5 years and the quality never drops!"</p>
+                    <div class="reviewer">
+                        <img src="https://picsum.photos/seed/user1/100/100" alt="User">
+                        <div class="reviewer-info">
+                            <h4>Sarah Jenkins</h4>
+                            <span>Regular Customer</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"Super friendly staff and they remember my usual order. The delivery service is a lifesaver on busy days."</p>
+                    <div class="reviewer">
+                        <img src="https://picsum.photos/seed/user2/100/100" alt="User">
+                        <div class="reviewer-info">
+                            <h4>Mike Ross</h4>
+                            <span>Local Resident</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="stars">★★★★☆</div>
+                    <p class="review-text">"Great selection of snacks and household items. Prices are very reasonable compared to big supermarkets."</p>
+                    <div class="reviewer">
+                        <img src="https://picsum.photos/seed/user3/100/100" alt="User">
+                        <div class="reviewer-info">
+                            <h4>Emily Clark</h4>
+                            <span>Neighbor</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products">
+        <div class="container">
+            <h2 class="section-title">What We Offer</h2>
+            <p class="section-subtitle">Everything you need for your home, available in one stop.</p>
+
+            <div class="products-grid">
+                <div class="product-card">
+                    <img src="https://picsum.photos/seed/vegetables/400/300" alt="Fresh Vegetables" class="product-image">
+                    <div class="product-info">
+                        <div class="product-category">Grocery</div>
+                        <h3 class="product-title">Fresh Vegetables</h3>
+                        <p class="product-desc">Daily stock of potatoes, onions, tomatoes, and seasonal greens directly from local farmers.</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://picsum.photos/seed/dairy/400/300" alt="Dairy Products" class="product-image">
+                    <div class="product-info">
+                        <div class="product-category">Dairy & Eggs</div>
+                        <h3 class="product-title">Milk, Curd & Cheese</h3>
+                        <p class="product-desc">Fresh farm milk, variety of cheeses, butter, and high-quality eggs delivered daily.</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://picsum.photos/seed/snacks/400/300" alt="Snacks and Beverages" class="product-image">
+                    <div class="product-info">
+                        <div class="product-category">Snacks</div>
+                        <h3 class="product-title">Biscuits & Beverages</h3>
+                        <p class="product-desc">Tea, coffee, soft drinks, and a wide range of biscuits and namkeen for your tea time.</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://picsum.photos/seed/cleaning/400/300" alt="Household Supplies" class="product-image">
+                    <div class="product-info">
+                        <div class="product-category">Household</div>
+                        <h3 class="product-title">Cleaning Essentials</h3>
+                        <p class="product-desc">Detergents, dishwashing bars, floor cleaners, and other sanitary supplies for your home.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Services Section -->
+    <section id="services">
+        <div class="container">
+            <h2 class="section-title" style="color:white; border:none;">How to Shop With Us</h2>
+            <p class="section-subtitle" style="color:rgba(255,255,255,0.8)">We make it easy for you.</p>
+
+            <div class="services-grid">
+                <div class="service-box">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24"><path d="M18,18.5A1.5,1.5 0 0,0 16.5,17A1.5,1.5 0 0,0 15,18.5A1.5,1.5 0 0,0 16.5,20A1.5,1.5 0 0,0 18,18.5M19.5,9.5H17V12H21.46L19.5,9.5M6,18.5A1.5,1.5 0 0,0 4.5,17A1.5,1.5 0 0,0 3,18.5A1.5,1.5 0 0,0 4.5,20A1.5,1.5 0 0,0 6,18.5M20,8H17V4H3A2,2 0 0,0 1,6V17H3A3,3 0 0,0 6,20A3,3 0 0,0 9,17H15A3,3 0 0,0 18,20A3,3 0 0,0 21,17H23V12L20,8Z" /></svg>
+                    </div>
+                    <h3>Home Delivery</h3>
+                    <p>Free delivery on orders over $30. Call us or WhatsApp your list!</p>
+                </div>
+                <div class="service-box">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M16.18,7.76L15.12,8.82L14.06,7.76L13,8.82L14.06,9.88L13,10.94L14.06,12L15.12,10.94L16.18,12L17.24,10.94L16.18,9.88L17.24,8.82L16.18,7.76M7.82,12L8.88,10.94L9.94,12L11,10.94L9.94,9.88L11,8.82L9.94,7.76L8.88,8.82L7.82,7.76L6.76,8.82L7.82,9.88L6.76,10.94L7.82,12M12,14C9.67,14 7.69,15.46 6.89,17.5H17.11C16.31,15.46 14.33,14 12,14Z" /></svg>
+                    </div>
+                    <h3>In-Store Pickup</h3>
+                    <p>Place your order by phone and pick it up ready at the counter. No waiting!</p>
+                </div>
+                <div class="service-box">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24"><path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z" /></svg>
+                    </div>
+                    <h3>Phone Order</h3>
+                    <p>Not tech-savvy? Just give us a ring. We are happy to take your order manually.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop Details Section -->
+    <section id="details">
+        <div class="container">
+            <div class="details-wrapper">
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z" /></svg>
+                        Opening Hours
+                    </div>
+                    <div class="detail-content">
+                        <p><strong>Mon - Sat:</strong> 8:00 AM - 9:00 PM</p>
+                        <p><strong>Sunday:</strong> 9:00 AM - 2:00 PM</p>
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <div class="detail-header">
+                        <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z" /></svg>
+                        Visit Us
+                    </div>
+                    <div class="detail-content">
+                        <p>123 Main Market Road</p>
+                        <p>Near Central Park, City Center</p>
+                        <p>City, State - 123456</p>
+                    </div>
+                </div>
+
+                <div class="map-btn-container">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Main+Market+Road+City+Center" target="_blank" class="btn btn-outline">
+                        <svg class="icon" viewBox="0 0 24 24" style="margin-right:8px"><path d="M12,2A7,7 0 0,1 19,9C19,14.25 12,22 12,22C12,22 5,14.25 5,9A7,7 0 0,1 12,2M12,4A5,5 0 0,0 7,9C7,10 7,12 12,18.71C17,12 17,10 17,9A5,5 0 0,0 12,4M12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5Z" /></svg>
+                        View on Google Maps
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 FreshCorner Store. All rights reserved.</p>
+            <p style="font-size: 0.8rem; color: #777;">Local business demo website</p>
+        </div>
+    </footer>
+
+    <!-- Floating Action Button for WhatsApp -->
+    <a href="https://wa.me/1234567890" class="fab-whatsapp" target="_blank" aria-label="Chat on WhatsApp">
+        <svg style="width:32px;height:32px;fill:white" viewBox="0 0 24 24">
+            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z" />
+        </svg>
+    </a>
+
+    <!-- NEW: Simple JavaScript for Live Open Status -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const statusBadge = document.getElementById('shop-status');
+            const statusText = document.getElementById('status-text');
+            const currentHour = new Date().getHours();
+            const currentDay = new Date().getDay(); // 0 is Sunday
+
+            // Logic: Mon-Sat (1-6): Open 8AM-9PM. Sunday (0): Open 9AM-2PM
+            let isOpen = false;
+
+            if (currentDay === 0) {
+                // Sunday check
+                if (currentHour >= 9 && currentHour < 14) {
+                    isOpen = true;
+                }
+            } else {
+                // Mon-Sat check
+                if (currentHour >= 8 && currentHour < 21) {
+                    isOpen = true;
+                }
+            }
+
+            if (isOpen) {
+                statusBadge.classList.add('open');
+                statusText.textContent = "We are Open!";
+            } else {
+                statusBadge.classList.add('closed');
+                statusText.textContent = "Currently Closed";
+            }
+        });
+    </script>
+
+</body>
+</html>
